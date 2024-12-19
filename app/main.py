@@ -13,8 +13,8 @@ app = FastAPI()
 # 配置CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3002", "http://localhost:3000"],  # 允许的前端域名
-    allow_credentials=True,
+    allow_origins=["*"],  # 允许所有来源
+    allow_credentials=False,  # 关闭 credentials 模式
     allow_methods=["*"],  # 允许所有 HTTP 方法
     allow_headers=["*"],  # 允许所有 headers
 )
@@ -98,7 +98,7 @@ async def update_shows(request: Request):
         }
         
     except Exception as e:
-        logger.error(f"更新请求处理失败: {str(e)}")
+        logger.error(f"新请求处理失败: {str(e)}")
         raise HTTPException(
             status_code=500,
             detail=str(e)
